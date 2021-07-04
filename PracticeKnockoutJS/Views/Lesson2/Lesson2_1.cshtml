@@ -1,0 +1,86 @@
+﻿<h2>Lesson 2-1</h2>
+<h2>Order</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Customer name</th>
+            <th>Meal</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: DefaultCustomers">
+        <tr>
+            <td data-bind="text:CustomerName"></td>
+            <td data-bind="text: Meal().mealDescription"></td>
+            <td data-bind="text: Meal().price"></td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function () {
+
+        function OrderInfo(customerName, initailMeal) {
+            var self = this;
+            self.CustomerName = customerName;
+            self.Meal = ko.observable(initailMeal);
+        }
+
+        function OrderViewModel() {
+            var self = this;
+            self.MealDetail = [
+                {
+                    mealDescription: "套餐A：大麥克", price:120
+                },
+                {
+                    mealDescription: "套餐A：雙層牛肉吉事堡", price:130
+                }
+            ];
+
+            self.DefaultCustomers = ko.observableArray([
+                new OrderInfo("小明", self.MealDetail[0]),
+                new OrderInfo("小白", self.MealDetail[1])
+            ]);
+        }
+
+        ko.applyBindings(new OrderViewModel());
+    });
+</script>
+
+
+@*巢狀卡關，之後再試
+    <script>
+    $(document).ready(function () {
+
+        function OrderInfo(customerName, initailMeal) {
+            var self = this;
+            self.CustomerName = customerName;
+            self.Meal = ko.observable(initailMeal);
+        }
+
+        function OrderViewModel() {
+            var self = this;
+            self.MealDetail = [
+                {
+                    //mealDescription: "套餐A：大麥克",setNo:["A","B","C","D","E"],price:[127,127,140,157,157],
+                    mealDescription: "套餐A：大麥克", Detail: [{ "setNo": "A", "price": "127" }, { "setNo": "B", "price": "127" }],
+                    mealDescription: "套餐A：雙層牛肉吉事堡", Detail: [{ "setNo": "A", "price": "117" }, { "setNo": "B", "price": "117" }]
+
+                    //[{ setNo: "A", price: 127 }, { setNo: "B", price: 127 }, { setNo: "C", price: 140 }, { setNo: "D", price: 157 }, { setNo: "E", price: 157 }],
+                    //mealDescription: "套餐B：雙層牛肉吉事堡	", setNo: ["A", "B", "C", "D", "E"], price: [117, 117, 130, 147, 147]
+
+                    //[{ setNo: "A", price: 117 }, { setNo: "B", price: 117 }, { setNo: "C", price: 130 }, { setNo: "D", price: 147 }, { setNo: "E", price: 147 }]
+                }
+            ];
+
+            self.DefaultCustomers = ko.observableArray([
+                new OrderInfo("小明", self.MealDetail[0]),
+                new OrderInfo("小白", self.MealDetail[1])
+            ]);
+        }
+
+        ko.applyBindings(new OrderViewModel());
+    });
+</script>*@

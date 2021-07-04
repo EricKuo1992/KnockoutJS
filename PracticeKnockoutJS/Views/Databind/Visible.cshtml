@@ -1,0 +1,40 @@
+﻿@*參考網址：http://www.aizhengli.com/tomxu-knockout/660/%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%9A%E7%BB%91%E5%AE%9A%E8%AF%AD%E6%B3%95%EF%BC%881%EF%BC%89.html*@
+
+@{
+    ViewBag.Title = "Visible";
+}
+
+<h2>Visible</h2>
+
+@*訊息是否可見取決於shouldShowMessage的值*@
+<div data-bind="visible: shouldShowMessage">
+    You will see this message only when "shouldShowMessage" holds a true value.
+</div>
+<button data-bind="click: HideOrShow">隱藏/顯示</button>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function viewModel() {
+            var self = this;
+
+            //宣告self.shouldShowMessage是observable且初始值為true
+            self.shouldShowMessage = ko.observable(true),
+
+                //宣告HideOrShow這個方法，當【隱藏/顯示】按鈕被點擊時觸發
+                //判別self.shouldShowMessage()是true / false
+                self.HideOrShow = function () {
+                    if (self.shouldShowMessage()) self.shouldShowMessage(false); //true表示訊息可見，此時將值改為false=>訊息不可見
+                    else self.shouldShowMessage(true);//反之(false)表示訊息不可見，此時將值改為true=>訊息不可見
+                }
+        };
+
+        ko.applyBindings(new viewModel());
+    });
+
+
+
+
+    //viewModel.shouldShowMessage(false); // ... now it's hidden
+    //viewModel.shouldShowMessage(true); // ... now it's visible again
+</script>

@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lesson 1-2</h2>
+
+<p>First name: <input data-bind="value: firstName"/> </p>
+<p>Last name:  <input data-bind="value: lastName" /></p>
+
+
+<script>
+    $(document).ready(function () {
+        function AppViewModel() {
+            this.firstName = ko.observable("Kuo");
+            this.lastName = ko.observable("Brandon");
+        }
+        ko.applyBindings(new AppViewModel());
+    });
+</script>

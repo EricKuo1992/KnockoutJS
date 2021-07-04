@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "AddClass";
+}
+
+<h2>Css</h2>
+<div><input data-bind="value: addClass" /></div>
+
+@*當addClass()結果為50時添加class，初始值為50所以一開始就會有class"test"*@
+<div data-bind="css:{test:addClass()==50}"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function viewModel() {
+            var self = this;
+            self.addClass = ko.observable(50); //宣告addClass為observable，並給予初始值50
+        };;
+
+        ko.applyBindings(new viewModel());
+    });
+
+
+
+</script>

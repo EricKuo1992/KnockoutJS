@@ -1,0 +1,86 @@
+﻿<h2>Lesson 2-4</h2>
+<h2>Order_RemoveItemAndShowTotalPrice</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Customer name</th>
+            <th>Meal</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: DefaultCustomers">
+        <tr>
+            <td><input data-bind="value:CustomerName" /></td>
+            <td><select data-bind="options: $root.MealDetail,value:Meal,optionsText:'mealDescription'"></select></td>
+            <td data-bind="text: formattedPrice"></td>
+
+            @*Add a remove link*@
+            <td><a href="#" data-bind="click: $root.removeCustomer">Remove</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<button data-bind="click: addCustomer"> AddCustomer</button>
+
+
+<h3 data-bind="visible:totalPrice()>0">
+    Total Price : $<span data-bind="text: totalPrice().toFixed(2)"></span>
+</h3>
+<script>
+    $(document).ready(function () {
+
+        function OrderInfo(customerName, initailMeal) {
+            var self = this;
+            self.CustomerName = customerName;
+            self.Meal = ko.observable(initailMeal);
+
+            //add formattedNumber
+            self.formattedPrice = ko.computed(function () {
+                var price = self.Meal().price;
+                return price ? "$" + price.toFixed(2) : "None";
+            });
+        }
+
+        function OrderViewModel() {
+            var self = this;
+            self.MealDetail = [
+                {
+                    mealDescription: "套餐A：大麥克", price: 120
+                },
+                {
+                    mealDescription: "套餐A：雙層牛肉吉事堡", price: 130
+                }
+            ];
+
+            self.DefaultCustomers = ko.observableArray([
+                new OrderInfo("小明", self.MealDetail[0]),
+                new OrderInfo("小白", self.MealDetail[1])
+            ]);
+
+
+            self.addCustomer = function () {
+                self.DefaultCustomers.push(new OrderInfo("", self.MealDetail[0]));
+            }
+
+            //add remove function
+            self.removeCustomer = function (DefaultCustomers) {
+                self.DefaultCustomers.remove(DefaultCustomers)
+            }
+
+            //add total price
+            self.totalPrice = ko.computed(function () {
+                var total = 0;
+                for (var i = 0; i<self.DefaultCustomers().length; i++) 
+                    total += self.DefaultCustomers()[i].Meal().price;
+                
+                return total;
+            });
+        }
+
+        ko.applyBindings(new OrderViewModel());
+    });
+</script>
+
+

@@ -120,8 +120,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DatabindController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PracticeController.cs" />
+    <Compile Include="Controllers\Lesson1Controller.cs" />
+    <Compile Include="Controllers\Lesson2Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -165,7 +167,20 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Practice\Index.cshtml" />
+    <Content Include="Views\Lesson1\Lesson1_1.cshtml" />
+    <Content Include="Views\Lesson1\Lesson1_2.cshtml" />
+    <Content Include="Views\Lesson1\Lesson1_3.cshtml" />
+    <Content Include="Views\Lesson1\Lesson1_4.cshtml" />
+    <Content Include="Views\Lesson2\Lesson2_1.cshtml" />
+    <Content Include="Views\Lesson2\Lesson2_2.cshtml" />
+    <Content Include="Views\Lesson2\Lesson2_3.cshtml" />
+    <Content Include="Views\Lesson2\Lesson2_4.cshtml" />
+    <Content Include="Views\Databind\Visible.cshtml" />
+    <Content Include="Views\Databind\Visible2.cshtml" />
+    <Content Include="Views\Databind\Text.cshtml" />
+    <Content Include="Views\Databind\Css.cshtml" />
+    <Content Include="Views\Databind\Html.cshtml" />
+    <Content Include="Views\Databind\Style.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

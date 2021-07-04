@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Html";
+}
+
+<h2>Html</h2>
+
+@*注意綁定的類別必須為html*@
+<div data-bind="html: addHtml"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function viewModel() {
+            var self = this;
+            self.addHtml = ko.observable("<span>這是被加上去的Html</span>"); //宣告addHtml為observable，並給予初始值50
+        };;
+
+        ko.applyBindings(new viewModel());
+    });
+
+
+
+</script>

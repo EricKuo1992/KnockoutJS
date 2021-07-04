@@ -1,0 +1,42 @@
+﻿@*參考網址：http://www.aizhengli.com/tomxu-knockout/660/%E7%AC%AC%E4%B8%89%E7%AB%A0%EF%BC%9A%E7%BB%91%E5%AE%9A%E8%AF%AD%E6%B3%95%EF%BC%881%EF%BC%89.html*@
+
+@{
+    ViewBag.Title = "Visible2";
+}
+
+<h2>Visible2</h2>
+
+@*訊息是否可見取決於arrayValue是否有值*@
+<div data-bind="visible: arrayValue().length>0">
+    You will see this message only when 'myValues' has at least one member.
+</div>
+<button data-bind="click: HideOrShow">隱藏/顯示</button>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function viewModel() {
+            var self = this;
+
+            //宣告self.arrayValue是observable且陣列有初始值
+            self.arrayValue = ko.observableArray(["初始值"]),
+
+                //宣告HideOrShow這個方法，當【隱藏/顯示】按鈕被點擊時觸發
+                //判別self.arrayValue()是否有值
+                self.HideOrShow = function () {
+                if (self.arrayValue().length > 0) //長度!=0表示陣列有東西
+                    self.arrayValue.removeAll(); //此時使用removeAll()將陣列清空
+                else //反之表示陣列沒東西 => 訊息不可見
+                    self.arrayValue.push("Hello KnockoutJS");//此時將給予陣列一個值=>訊息可見
+                }
+        };
+
+        ko.applyBindings(new viewModel());
+    });
+
+
+
+
+    //viewModel.shouldShowMessage(false); // ... now it's hidden
+    //viewModel.shouldShowMessage(true); // ... now it's visible again
+</script>

@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Style";
+}
+
+<h2>Style</h2>
+<div data-bind="style:{color:inputValue() >10 ? 'red' : 'blue'}">demoText</div>
+<br />
+
+<div>
+    請輸入值：
+    <input data-bind="value: inputValue"/>
+</div>
+<div>
+    您輸入的值：
+    <span data-bind="text: inputValue"></span>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        function viewModel() {
+            var self = this;
+            self.inputValue = ko.observable(10);
+        };
+        ko.applyBindings(new viewModel());
+    });
+</script>
+

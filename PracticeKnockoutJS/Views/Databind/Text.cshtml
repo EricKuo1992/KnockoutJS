@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Text";
+}
+
+<h2>Text</h2>
+<div> 請輸入值：
+    <input data-bind="value:inputText">
+</div>
+<br />
+
+<div>您輸入的值：
+    <span data-bind="text: inputText"></span>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        function viewModel() {
+            var self = this;
+            self.inputText = ko.observable(" ");
+        };
+        ko.applyBindings(new viewModel());
+    });
+</script>

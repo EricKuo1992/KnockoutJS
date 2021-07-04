@@ -1,0 +1,68 @@
+﻿<h2>Lesson 2-3</h2>
+<h2>Order_AddItem</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Customer name</th>
+            <th>Meal</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: DefaultCustomers">
+        <tr>
+            @*change 2td*@
+            <td><input data-bind="value:CustomerName"/></td>
+            <td><select  data-bind="options: $root.MealDetail,value:Meal,optionsText:'mealDescription'"></select></td>
+
+            @* Change To Formatted Price*@
+            <td data-bind="text: formattedPrice"></td>
+        </tr>
+    </tbody>
+</table>
+
+<button data-bind="click: addCustomer"> AddCustomer</button>
+
+<script>
+    $(document).ready(function () {
+
+        function OrderInfo(customerName, initailMeal) {
+            var self = this;
+            self.CustomerName = customerName;
+            self.Meal = ko.observable(initailMeal);
+
+            //add formattedNumber
+            self.formattedPrice = ko.computed(function () {
+                var price = self.Meal().price;
+                return price ? "$" + price.toFixed(2) : "None";
+            });
+        }
+
+        function OrderViewModel() {
+            var self = this;
+            self.MealDetail = [
+                {
+                    mealDescription: "套餐A：大麥克", price: 120
+                },
+                {
+                    mealDescription: "套餐A：雙層牛肉吉事堡", price: 130
+                }
+            ];
+
+            self.DefaultCustomers = ko.observableArray([
+                new OrderInfo("小明", self.MealDetail[0]),
+                new OrderInfo("小白", self.MealDetail[1])
+            ]);
+
+
+            self.addCustomer = function () {
+                self.DefaultCustomers.push(new OrderInfo("", self.MealDetail[0]));
+            }
+        }
+
+        ko.applyBindings(new OrderViewModel());
+    });
+</script>
+
+

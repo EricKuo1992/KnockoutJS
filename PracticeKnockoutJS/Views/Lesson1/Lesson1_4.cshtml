@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Lesson1_4";
+}
+
+<h2>Lesson1_4 Add more behavior</h2>
+
+<p>First name: <input data-bind="value: firstName" /> </p>
+<p>Last name:  <input data-bind="value: lastName" /></p>
+
+<p>Full name:  <strong data-bind="text: fullName"></strong></p>
+
+<button data-bind="click:capitalizeFirstNameToUpper">FirstNameToUpper</button>
+<button data-bind="click:capitalizeFirstNameToLower">FirstNameToLower</button>
+<button data-bind="click:capitalizeLastNameToUpper">LastNameToUpper</button>
+<button data-bind="click:capitalizeLastNameToLower">LastNameToLower</button>
+
+
+<script>
+    $(document).ready(function () {
+        function AppViewModel() {
+            this.firstName = ko.observable("Kuo");
+            this.lastName = ko.observable("Brandon");
+            this.fullName = ko.computed(function () {
+                return this.firstName() + " " + this.lastName();
+            }, this)
+
+            //add more behavior
+            this.capitalizeFirstNameToUpper = function () {
+                var currentFirstNameVal = this.firstName();
+                this.firstName(currentFirstNameVal.toUpperCase());
+            }
+
+            this.capitalizeFirstNameToLower = function () {
+                var currentFirstNameVal = this.firstName();
+                this.firstName(currentFirstNameVal.toLowerCase());
+            }
+
+            this.capitalizeLastNameToUpper = function () {
+                var currentLastNameVal = this.lastName();
+                this.lastName(currentLastNameVal.toUpperCase());
+            }
+
+            this.capitalizeLastNameToLower = function () {
+                var currentLastNameVal = this.lastName();
+                this.lastName(currentLastNameVal.toLowerCase());
+            }
+        }
+        ko.applyBindings(new AppViewModel());
+    });
+</script>

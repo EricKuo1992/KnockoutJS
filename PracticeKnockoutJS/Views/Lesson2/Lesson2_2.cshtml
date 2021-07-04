@@ -1,0 +1,59 @@
+﻿<h2>Lesson 2-2</h2>
+<h2>Order_AddItem</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Customer name</th>
+            <th>Meal</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: DefaultCustomers">
+        <tr>
+            <td data-bind="text:CustomerName"></td>
+            <td data-bind="text: Meal().mealDescription"></td>
+            <td data-bind="text: Meal().price"></td>
+        </tr>
+    </tbody>
+</table>
+
+<button data-bind="click: addCustomer"> AddCustomer</button>
+
+<script>
+    $(document).ready(function () {
+
+        function OrderInfo(customerName, initailMeal) {
+            var self = this;
+            self.CustomerName = customerName;
+            self.Meal = ko.observable(initailMeal);
+        }
+
+        function OrderViewModel() {
+            var self = this;
+            self.MealDetail = [
+                {
+                    mealDescription: "套餐A：大麥克", price: 120
+                },
+                {
+                    mealDescription: "套餐A：雙層牛肉吉事堡", price: 130
+                }
+            ];
+
+            self.DefaultCustomers = ko.observableArray([
+                new OrderInfo("小明", self.MealDetail[0]),
+                new OrderInfo("小白", self.MealDetail[1])
+            ]);
+
+
+            self.addCustomer = function () {
+                self.DefaultCustomers.push(new OrderInfo("", self.MealDetail[0]));
+            }
+        }
+
+        ko.applyBindings(new OrderViewModel());
+    });
+</script>
+
+
